@@ -8,28 +8,35 @@ import { pecaPorQR, type Peca } from "../lib/pecas";
 import { useProgresso } from "../lib/useProgresso";
 
 type Resultado =
+    | { tipo: "pergunta"; peca: Peca }
     | { tipo: "nova"; peca: Peca }
     | { tipo: "repetida"; peca: Peca }
     | { tipo: "invalida" };
 
 export default function CameraQRCode () {
     const router = useRouter();
-    const { liberar } = useProgresso();
+    const { liberar, desbloqueadas, carregado } = useProgresso();
 
     const [resultado, setResultado] = useState<Resultado | null>(null);
+    const [erradas, setErradas] = useState<number[]>([]);
     const [erro, setErro] = useState<string | null>(null);
 
-    // evita processar o mesmo QR várias vezes enquanto o resultado está na tela
+    // evita processar o mesmo QR várias vezes enquanto o painel está na tela
     const travado = useRef(false);
     const liberarRef = useRef(liberar);
     liberarRef.current = liberar;
+    // sempre aponta para o progresso mais recente (o scanner é criado uma vez só)
+    const desbloqueadasRef = useRef(desbloqueadas);
+    desbloqueadasRef.current = desbloqueadas;
+    const carregadoRef = useRef(carregado);
+    carregadoRef.current = carregado;
 
     useEffect(() => {
         let scanner: import("html5-qrcode").Html5Qrcode | null = null;
         let cancelado = false;
 
         const aoLer = (texto: string) => {
-            if (travado.current) return;
+            if (travado.current || !carregadoRef.current) return;
             travado.current = true;
 
             const peca = pecaPorQR(texto);
@@ -37,8 +44,12 @@ export default function CameraQRCode () {
                 setResultado({ tipo: "invalida" });
                 return;
             }
-            const nova = liberarRef.current(peca.id);
-            setResultado({ tipo: nova ? "nova" : "repetida", peca });
+            if (desbloqueadasRef.current.includes(peca.id)) {
+                setResultado({ tipo: "repetida", peca });
+                return;
+            }
+            setErradas([]);
+            setResultado({ tipo: "pergunta", peca });
         };
 
         (async () => {
@@ -67,7 +78,17 @@ export default function CameraQRCode () {
 
     const escanearOutra = () => {
         setResultado(null);
+        setErradas([]);
         travado.current = false;
+    };
+
+    const responder = (peca: Peca, indice: number) => {
+        if (indice === peca.correta) {
+            liberarRef.current(peca.id);
+            setResultado({ tipo: "nova", peca });
+        } else {
+            setErradas((e) => (e.includes(indice) ? e : [...e, indice]));
+        }
     };
 
     return (
@@ -87,12 +108,39 @@ export default function CameraQRCode () {
             {resultado && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/80 px-6">
                     <div className="w-full max-w-sm bg-zinc-100 text-zinc-950 rounded-xs p-4 flex flex-col items-center gap-3 text-center">
-                        {resultado.tipo === "invalida" ? (
+                        {resultado.tipo === "invalida" && (
                             <>
                                 <h1>QR CODE INVÁLIDO</h1>
                                 <p className="text-xs">Este código não faz parte da caça ao tesouro. Procure outro.</p>
                             </>
-                        ) : (
+                        )}
+
+                        {resultado.tipo === "pergunta" && (
+                            <>
+                                <h1>RESPONDA PARA DESBLOQUEAR</h1>
+                                <p className="text-sm">{resultado.peca.pergunta}</p>
+                                <div className="w-full flex flex-col gap-2">
+                                    {resultado.peca.opcoes.map((opcao, i) => {
+                                        const errada = erradas.includes(i);
+                                        return (
+                                            <button
+                                                key={i}
+                                                disabled={errada}
+                                                onClick={() => responder(resultado.peca, i)}
+                                                className={`w-full p-2 rounded-md border border-zinc-950 text-left ${errada ? "opacity-40 line-through" : "bg-orange-300"}`}
+                                            >
+                                                {opcao}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                                {erradas.length > 0 && (
+                                    <p className="text-xs">Resposta incorreta. Tente outra opção.</p>
+                                )}
+                            </>
+                        )}
+
+                        {(resultado.tipo === "nova" || resultado.tipo === "repetida") && (
                             <>
                                 <h1>{resultado.tipo === "nova" ? "PISTA DESBLOQUEADA" : "PISTA JÁ DESBLOQUEADA"}</h1>
                                 <div
@@ -106,9 +154,12 @@ export default function CameraQRCode () {
                                 </p>
                             </>
                         )}
+
                         <div className="w-full flex gap-2">
-                            <button onClick={escanearOutra} className="w-full p-2 bg-zinc-950 text-orange-300 rounded-md">ESCANEAR OUTRA</button>
-                            {resultado.tipo !== "invalida" && (
+                            <button onClick={escanearOutra} className="w-full p-2 bg-zinc-950 text-orange-300 rounded-md">
+                                {resultado.tipo === "pergunta" ? "CANCELAR" : "ESCANEAR OUTRA"}
+                            </button>
+                            {(resultado.tipo === "nova" || resultado.tipo === "repetida") && (
                                 <button onClick={() => router.push("/ferramentas")} className="w-full p-2 bg-orange-300 text-zinc-950 rounded-md">VER PISTAS</button>
                             )}
                         </div>
