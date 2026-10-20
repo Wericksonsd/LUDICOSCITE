@@ -8,7 +8,7 @@ export const PECAS: Pecas[] = dados.pecas.map((p) => ({
   codigo: p.codigo,
   link: p.link,
   pergunta: p.pergunta,
-  repostas: p.resposta,
+  reposta: p.resposta,
   correta: p.correta,
 }));
 

@@ -2,7 +2,7 @@
     "pecas": [
         {"id": 1,
         "codigo": "6Q49XZ45WM",
-        "link": "/peca_1",
+        "link": "/pecas_1",
         "pergunta": "Quem é o mais forte do Escape?",
         "resposta": [
             "Gregory",
@@ -13,7 +13,7 @@
 
         {"id": 2,
         "codigo": "9Y3Q2LWPUR",
-        "link": "/peca_2",
+        "link": "/pecas_2",
         "pergunta": "Quem é o mais Escape?",
         "resposta": [
             "Gregory Gallego",
@@ -24,7 +24,73 @@
 
         {"id": 3,
         "codigo": "WKGXT7F359",
-        "link": "/peca_3",
+        "link": "/pecas_3",
+        "pergunta": "Quem é?",
+        "resposta": [
+            "que?",
+            "pina",
+            "?",
+            "ele"],
+        "correta": 1},
+
+        {"id": 4,
+        "codigo": "JPI4Q8FG68",
+        "link": "/pecas_4",
+        "pergunta": "Quem é?",
+        "resposta": [
+            "que?",
+            "pina",
+            "?",
+            "ele"],
+        "correta": 1},
+
+        {"id": 5,
+        "codigo": "8A4G5HUI78",
+        "link": "/pecas_5",
+        "pergunta": "Quem é?",
+        "resposta": [
+            "que?",
+            "pina",
+            "?",
+            "ele"],
+        "correta": 1},
+
+        {"id": 6,
+        "codigo": "000HP1ZZ4",
+        "link": "/pecas_6",
+        "pergunta": "Quem é?",
+        "resposta": [
+            "que?",
+            "pina",
+            "?",
+            "ele"],
+        "correta": 1},
+
+        {"id": 7,
+        "codigo": "C1M3NT000",
+        "link": "/pecas_7",
+        "pergunta": "Quem é?",
+        "resposta": [
+            "que?",
+            "pina",
+            "?",
+            "ele"],
+        "correta": 1},
+
+        {"id": 8,
+        "codigo": "S4ND4L14",
+        "link": "/pecas_8",
+        "pergunta": "Quem é?",
+        "resposta": [
+            "que?",
+            "pina",
+            "?",
+            "ele"],
+        "correta": 1},
+
+        {"id": 9,
+        "codigo": "B3T0N3R4",
+        "link": "/pecas_9",
         "pergunta": "Quem é?",
         "resposta": [
             "que?",
