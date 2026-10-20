@@ -2,7 +2,7 @@
     "pecas": [
         {"id": 1,
         "codigo": "6Q49XZ45WM",
-        "link": "/pecas_1.png",
+        "link": "/pecas_4.png",
         "pergunta": "Quem é o mais forte do Escape?",
         "resposta": [
             "Gregory",
@@ -13,7 +13,7 @@
 
         {"id": 2,
         "codigo": "9Y3Q2LWPUR",
-        "link": "/pecas_2.png",
+        "link": "/pecas_6.png",
         "pergunta": "Quem é o mais Escape?",
         "resposta": [
             "Gregory Gallego",
@@ -24,7 +24,7 @@
 
         {"id": 3,
         "codigo": "WKGXT7F359",
-        "link": "/pecas_3.png",
+        "link": "/pecas_2.png",
         "pergunta": "Quem é?",
         "resposta": [
             "que?",
@@ -35,7 +35,7 @@
 
         {"id": 4,
         "codigo": "JPI4Q8FG68",
-        "link": "/pecas_4.png",
+        "link": "/pecas_7.png",
         "pergunta": "Quem é?",
         "resposta": [
             "que?",
@@ -46,7 +46,7 @@
 
         {"id": 5,
         "codigo": "8A4G5HUI78",
-        "link": "/pecas_5.png",
+        "link": "/pecas_1.png",
         "pergunta": "Quem é?",
         "resposta": [
             "que?",
@@ -57,7 +57,7 @@
 
         {"id": 6,
         "codigo": "000HP1ZZ4",
-        "link": "/pecas_6.png",
+        "link": "/pecas_8.png",
         "pergunta": "Quem é?",
         "resposta": [
             "que?",
@@ -68,7 +68,7 @@
 
         {"id": 7,
         "codigo": "C1M3NT000",
-        "link": "/pecas_7.png",
+        "link": "/pecas_9.png",
         "pergunta": "Quem é?",
         "resposta": [
             "que?",
@@ -79,7 +79,7 @@
 
         {"id": 8,
         "codigo": "S4ND4L14",
-        "link": "/pecas_8.png",
+        "link": "/pecas_3.png",
         "pergunta": "Quem é?",
         "resposta": [
             "que?",
@@ -90,7 +90,7 @@
 
         {"id": 9,
         "codigo": "B3T0N3R4",
-        "link": "/pecas_9.png",
+        "link": "/pecas_5.png",
         "pergunta": "Quem é?",
         "resposta": [
             "que?",
