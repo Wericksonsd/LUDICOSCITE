@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, Camera } from "lucide-react";
-import { pecaPorQR, type Pecas } from "../lib/pecas";
+import { pecaPorQR } from "../lib/pecas";
+import { type Pecas } from "../db/pecasType";
 import { useProgresso } from "../lib/useProgresso";
 
 type Resultado =
@@ -120,7 +121,7 @@ export default function CameraQRCode () {
                                 <h1>RESPONDA PARA DESBLOQUEAR</h1>
                                 <p className="text-sm">{resultado.peca.pergunta}</p>
                                 <div className="w-full flex flex-col gap-2">
-                                    {resultado.peca.repostas.map((resposta, i) => {
+                                    {resultado.peca.reposta.map((resposta, i) => {
                                         const errada = erradas.includes(i);
                                         return (
                                             <button
@@ -143,9 +144,11 @@ export default function CameraQRCode () {
                         {(resultado.tipo === "nova" || resultado.tipo === "repetida") && (
                             <>
                                 <h1>{resultado.tipo === "nova" ? "PISTA DESBLOQUEADA" : "PISTA JÁ DESBLOQUEADA"}</h1>
-                                <div
-                                    className="w-32 h-32 border border-zinc-950 rounded-xs"
-                                    style={{ backgroundColor: resultado.peca.cor }}
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                    src={resultado.peca.link}
+                                    alt={`Peça ${resultado.peca.id}`}
+                                    className="w-32 h-32 object-cover border border-zinc-950 rounded-xs"
                                 />
                                 <p className="text-xs">
                                     {resultado.tipo === "nova"
