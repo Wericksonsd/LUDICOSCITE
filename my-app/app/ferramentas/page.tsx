@@ -11,8 +11,7 @@ export default function Ferramentas () {
     const { desbloqueadas, tabuleiro, carregado, resolvido, imagemLiberada, colocar, reiniciar } = useProgresso();
     const [posicao, setPosicao] = useState<number | null>(null);
 
-    const corDaPeca = (id: number | null) =>
-        id === null ? undefined : PECAS.find((p) => p.id === id)?.cor;
+    const linkDaPeca = (id: number) => PECAS.find((p) => p.id === id)?.link;
 
     const handleReiniciar = () => {
         if (window.confirm("Apagar todo o progresso (pistas e quebra-cabeça)?")) reiniciar();
@@ -31,7 +30,7 @@ export default function Ferramentas () {
                         onClick={() => setPosicao(i)}
                         aria-label={`Posição ${i + 1}`}
                         className="aspect-square border border-zinc-100 bg-zinc-950 flex items-center justify-center"
-                        style={{ backgroundColor: corDaPeca(id) }}
+                        style={{ backgroundColor: linkDaPeca(id) }}
                     >
                         {id === null && <span className="text-zinc-100 text-xl">+</span>}
                     </button>

@@ -4,13 +4,13 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, Camera } from "lucide-react";
-import { pecaPorQR, type Peca } from "../lib/pecas";
+import { pecaPorQR, type Pecas } from "../lib/pecas";
 import { useProgresso } from "../lib/useProgresso";
 
 type Resultado =
-    | { tipo: "pergunta"; peca: Peca }
-    | { tipo: "nova"; peca: Peca }
-    | { tipo: "repetida"; peca: Peca }
+    | { tipo: "pergunta"; peca: Pecas }
+    | { tipo: "nova"; peca: Pecas }
+    | { tipo: "repetida"; peca: Pecas }
     | { tipo: "invalida" };
 
 export default function CameraQRCode () {
@@ -82,7 +82,7 @@ export default function CameraQRCode () {
         travado.current = false;
     };
 
-    const responder = (peca: Peca, indice: number) => {
+    const responder = (peca: Pecas, indice: number) => {
         if (indice === peca.correta) {
             liberarRef.current(peca.id);
             setResultado({ tipo: "nova", peca });
@@ -120,7 +120,7 @@ export default function CameraQRCode () {
                                 <h1>RESPONDA PARA DESBLOQUEAR</h1>
                                 <p className="text-sm">{resultado.peca.pergunta}</p>
                                 <div className="w-full flex flex-col gap-2">
-                                    {resultado.peca.opcoes.map((opcao, i) => {
+                                    {resultado.peca.repostas.map((resposta, i) => {
                                         const errada = erradas.includes(i);
                                         return (
                                             <button
@@ -129,7 +129,7 @@ export default function CameraQRCode () {
                                                 onClick={() => responder(resultado.peca, i)}
                                                 className={`w-full p-2 rounded-md border border-zinc-950 text-left ${errada ? "opacity-40 line-through" : "bg-orange-300"}`}
                                             >
-                                                {opcao}
+                                                {resposta}
                                             </button>
                                         );
                                     })}
