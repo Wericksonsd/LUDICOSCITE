@@ -9,7 +9,7 @@ import { useProgresso } from "./lib/useProgresso";
 import { TOTAL_PECAS } from "./lib/pecas";
 
 export default function Central () {
-    const { desbloqueadas, carregado } = useProgresso();
+    const { desbloqueadas, carregado, imagemLiberada } = useProgresso();
 
     const [modalIntro, setModalIntro] = useState(false);
 
@@ -36,6 +36,10 @@ export default function Central () {
                     <p className="text-[0.75rem]">{carregado ? desbloqueadas.length : 0}/{TOTAL_PECAS} Desbloqueadas</p>
                 </Link>
             </div>
+
+            {carregado && imagemLiberada && (
+                <Link href="/resposta" className="w-full p-2 bg-orange-300 text-zinc-950 rounded-md text-center">IMAGEM COMPLETA</Link>
+            )}
 
             <button onClick={handleCloseModalIntro} className="w-full p-2 bg-zinc-950 text-orange-300 rounded-md">CARTA DE INTRODUÇÃO</button>    
 

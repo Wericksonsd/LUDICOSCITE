@@ -1,42 +1,39 @@
-export const TOTAL_PECAS = 12;
+import dados from "../db/pecas.json";
+import { type Pecas } from "../db/pecasType";
 
-export type Peca = {
-  id: number;
-  codigo: string;     // texto que vai dentro do QR code desta peça
-  cor: string;        // placeholder: troque por `imagem: "/pecas/1.png"` quando tiver as imagens reais
-  pergunta: string;   // placeholder: troque pela pergunta real
-  opcoes: string[];   // placeholder: 4 opções
-  correta: number;    // índice (0 a 3) da opção correta em `opcoes`
-};
+export const TOTAL_PECAS = 9;
 
-// Códigos aleatórios (um por peça). Gere os QR codes com ESTES textos.
-// Para trocar, basta editar a lista: o resto do sistema usa só `codigo`.
-const CODIGOS = [
-  "6Q49XZ45WM",
-  "9Y3Q2LWPUR",
-  "WKGXT7F359",
-  "3BZ2L8NS6M",
-  "82QL848MDF",
-  "2CTUQQJRC7",
-  "XA3CKJGT78",
-  "C4X573FW6H",
-  "GM8894JZNU",
-  "YZ5YEMHYAZ",
-  "KV3ZYH873R",
-  "7J2X2L5QE9",
-];
-
-export const PECAS: Peca[] = CODIGOS.map((codigo, i) => ({
-  id: i + 1,
-  codigo,
-  cor: `hsl(${i * 30} 70% 55%)`,
-  pergunta: `Pergunta ${i + 1}: substitua por uma pergunta real.`,
-  opcoes: ["Opção A", "Opção B", "Opção C", "Opção D"],
-  correta: 0,
+export const PECAS: Pecas[] = dados.pecas.map((p) => ({
+  id: p.id,
+  codigo: p.codigo,
+  link: p.link,
+  pergunta: p.pergunta,
+  repostas: p.resposta,
+  correta: p.correta,
 }));
 
+/**
+ * Ordem correta de montagem (não sequencial).
+ * O índice é a posição no quadro (0 = 1ª casa, canto superior esquerdo,
+ * lendo da esquerda para a direita, de cima para baixo)
+ * e o valor é o id da peça que deve estar ali.
+ * Deve conter cada número de 1 a 9 exatamente uma vez.
+ */
+export const ORDEM_CORRETA: number[] = PECAS.map((p) => p.id).sort((a, b) => a - b);
+
+/** Imagem completa liberada ao acertar a ordem. Ex.: "/resposta.png" (arquivo em /public). */
+export const IMAGEM_COMPLETA: string | null = null;
+
+/** true se TODAS as casas estão preenchidas com a peça certa. */
+export function verificarTabuleiro(tabuleiro: (number | null)[]): boolean {
+  return (
+    tabuleiro.length === TOTAL_PECAS &&
+    ORDEM_CORRETA.every((id, posicao) => tabuleiro[posicao] === id)
+  );
+}
+
 /** Retorna a peça cujo código bate com o texto lido no QR, ou null se for inválido. */
-export function pecaPorQR(texto: string): Peca | null {
+export function pecaPorQR(texto: string): Pecas | null {
   const lido = texto.trim().toUpperCase();
   return PECAS.find((p) => p.codigo === lido) ?? null;
 }

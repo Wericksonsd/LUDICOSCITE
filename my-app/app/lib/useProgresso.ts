@@ -1,19 +1,36 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { TOTAL_PECAS } from "./pecas";
+import { TOTAL_PECAS, verificarTabuleiro } from "./pecas";
 
 const CHAVE = "dq-progresso-v1";
 
 type Progresso = {
   desbloqueadas: number[];          // ids das peças liberadas via QR
   tabuleiro: (number | null)[];     // posição -> id da peça colocada
+  imagemLiberada: boolean;          // vira true ao montar na ordem certa e nunca volta a false
 };
 
 const vazio = (): Progresso => ({
   desbloqueadas: [],
   tabuleiro: Array(TOTAL_PECAS).fill(null),
+  imagemLiberada: false,
 });
+
+const idValido = (v: unknown): v is number =>
+  typeof v === "number" && Number.isInteger(v) && v >= 1 && v <= TOTAL_PECAS;
+
+/** Lê o que veio do localStorage e ajusta ao formato atual (aceita dados antigos). */
+function normalizar(d: any): Progresso {
+  const desbloqueadas: number[] = Array.isArray(d?.desbloqueadas)
+    ? Array.from(new Set<number>(d.desbloqueadas.filter(idValido)))
+    : [];
+  const tabuleiro: (number | null)[] = Array.from({ length: TOTAL_PECAS }, (_, i) => {
+    const v = Array.isArray(d?.tabuleiro) ? d.tabuleiro[i] : null;
+    return idValido(v) && desbloqueadas.includes(v) ? v : null;
+  });
+  return { desbloqueadas, tabuleiro, imagemLiberada: d?.imagemLiberada === true };
+}
 
 export function useProgresso() {
   const [progresso, setProgresso] = useState<Progresso>(vazio);
@@ -25,16 +42,7 @@ export function useProgresso() {
   useEffect(() => {
     try {
       const bruto = localStorage.getItem(CHAVE);
-      if (bruto) {
-        const d = JSON.parse(bruto);
-        if (
-          Array.isArray(d.desbloqueadas) &&
-          Array.isArray(d.tabuleiro) &&
-          d.tabuleiro.length === TOTAL_PECAS
-        ) {
-          setProgresso(d);
-        }
-      }
+      if (bruto) setProgresso(normalizar(JSON.parse(bruto)));
     } catch {}
     setCarregado(true);
   }, []);
@@ -65,7 +73,15 @@ export function useProgresso() {
 
   const reiniciar = useCallback(() => setProgresso(vazio()), []);
 
-  const resolvido = progresso.tabuleiro.every((v, i) => v === i + 1);
+  // o tabuleiro está na ordem certa neste momento?
+  const resolvido = verificarTabuleiro(progresso.tabuleiro);
+
+  // ao acertar, a imagem completa é liberada de forma permanente (fica salva)
+  useEffect(() => {
+    if (carregado && resolvido && !progresso.imagemLiberada) {
+      setProgresso((p) => ({ ...p, imagemLiberada: true }));
+    }
+  }, [carregado, resolvido, progresso.imagemLiberada]);
 
   return { ...progresso, carregado, resolvido, liberar, colocar, reiniciar };
 }
