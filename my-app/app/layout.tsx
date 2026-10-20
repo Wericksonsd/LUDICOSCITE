@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Image from "next/image";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,7 +24,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <a href="http://www.instagram.com/utfpr_ludico/" className="w-full p-4 bg-amber-600 flex items-center justify-center gap-2 text-zinc-800">
+          <p className="text-sm text-center font-bold">DÚVIDAS, ACESSE:</p>
+          <Image className="bg-amber-500 rounded-md" src="/instagram.svg" alt="instagram" width={20} height={20}/>
+        </a>
+        </body>
     </html>
   );
 }

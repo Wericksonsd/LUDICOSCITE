@@ -1,6 +1,7 @@
 'use client'
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { PECAS, TOTAL_PECAS } from "../lib/pecas";
@@ -19,11 +20,10 @@ export default function Ferramentas () {
     };
 
     return (
-        <div className="flex-1 w-full flex flex-col items-center gap-4 px-6 pt-12 py-4">
-            <h1>PISTAS</h1>
-            <p className="text-xs">{carregado ? desbloqueadas.length : 0}/{TOTAL_PECAS} Desbloqueadas</p>
+        <div className="flex-1 w-full flex flex-col items-center gap-4 px-6 py-12">
+            <h1 className="text-2xl font-bold -mb-4">PISTAS</h1>
+            <p className="text-md">{carregado ? desbloqueadas.length : 0}/{TOTAL_PECAS} Desbloqueadas</p>
 
-            {/* quadro: 12 divs coladas, bordas finas */}
             <div className="w-full max-w-sm grid grid-cols-3 border border-zinc-100">
                 {tabuleiro.map((id, i) => {
                     const src = linkDaPeca(id);
@@ -35,8 +35,7 @@ export default function Ferramentas () {
                             className="relative aspect-square border border-zinc-100 bg-zinc-950 overflow-hidden"
                         >
                             {src ? (
-                                // eslint-disable-next-line @next/next/no-img-element
-                                <img src={src} alt={`Peça ${id}`} className="absolute inset-0 w-full h-full object-cover" />
+                                <Image src={src} alt={`Peça ${id}`} className="absolute inset-0 w-full h-full object-cover" />
                             ) : (
                                 <span className="absolute inset-0 flex items-center justify-center text-zinc-100 text-xl">+</span>
                             )}
@@ -52,11 +51,13 @@ export default function Ferramentas () {
                 </Link>
             )}
 
-            <Link href="/cameraQRCode" className="w-full p-2 bg-orange-300 text-zinc-950 rounded-md text-center">ESCANEAR PISTA</Link>
-            <Link href="/" className="w-full p-2 bg-zinc-950 text-orange-300 rounded-md flex items-center justify-center gap-2">
+            <div className="flex-1"></div>
+
+            <Link href="/cameraQRCode" className="w-full p-2 bg-amber-600 text-zinc-200 rounded-md text-center">ESCANEAR PISTA</Link>
+            <Link href="/" className="w-full p-2 border-2 border-amber-600 text-amber-600 rounded-md flex items-center justify-center gap-2">
                 <ArrowLeft size={16}/> VOLTAR
             </Link>
-            <button onClick={handleReiniciar} className="text-[0.75rem] underline text-zinc-400">Reiniciar progresso</button>
+            <button onClick={handleReiniciar} className="text-md hidden text-zinc-200">Reiniciar progresso</button>
 
             {posicao !== null && (
                 <ModalPeca

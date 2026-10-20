@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, Camera } from "lucide-react";
+import { ArrowLeft, QrCode } from "lucide-react";
 import { pecaPorQR } from "../lib/pecas";
 import { type Pecas } from "../db/pecasType";
 import { useProgresso } from "../lib/useProgresso";
@@ -22,11 +22,12 @@ export default function CameraQRCode () {
     const [erradas, setErradas] = useState<number[]>([]);
     const [erro, setErro] = useState<string | null>(null);
 
-    // evita processar o mesmo QR várias vezes enquanto o painel está na tela
+    
     const travado = useRef(false);
     const liberarRef = useRef(liberar);
     liberarRef.current = liberar;
-    // sempre aponta para o progresso mais recente (o scanner é criado uma vez só)
+    
+    
     const desbloqueadasRef = useRef(desbloqueadas);
     desbloqueadasRef.current = desbloqueadas;
     const carregadoRef = useRef(carregado);
@@ -93,17 +94,17 @@ export default function CameraQRCode () {
     };
 
     return (
-        <div className="flex-1 w-full flex flex-col items-center gap-4 px-6 pt-12 py-4">
-            <h1>ESCANEAR PISTA</h1>
+        <div className="flex-1 w-full flex flex-col items-center gap-4 px-6  py-12">
+            <h1 className="text-2xl font-bold">ESCANEAR PISTA</h1>
 
-            <div className="w-full flex-1 py-6 px-2 bg-orange-300 rounded-xs text-center text-zinc-950 flex flex-col items-center justify-center gap-3">
+            <div className="w-full flex-1 py-6 px-4 bg-amber-600 rounded-2xl text-center text-zinc-200 flex flex-col items-center justify-center gap-3">
                 <span className="p-2 border-2 border-dashed rounded-md">
-                    <Camera size={36}/>
+                    <QrCode size={36}/>
                 </span>
-                <div id="leitor-qr" className="w-full max-w-sm overflow-hidden rounded-md bg-zinc-950" />
+                <div id="leitor-qr" className="w-full max-w-sm overflow-hidden rounded-md bg-zinc-800" />
                 {erro
-                    ? <p className="text-xs">{erro}</p>
-                    : <p className="text-xs">Aponte a câmera para o QR Code da pista.</p>}
+                    ? <p className="text-md">{erro}</p>
+                    : <p className="text-md">Aponte a câmera para o QR Code da pista.</p>}
             </div>
 
             {resultado && (
@@ -170,7 +171,7 @@ export default function CameraQRCode () {
                 </div>
             )}
 
-            <Link href="/" className="w-full p-2 bg-zinc-950 text-orange-300 rounded-md flex items-center justify-center gap-2">
+            <Link href="/" className="w-full p-2 border-2 border-amber-600 text-amber-600 rounded-md flex items-center justify-center gap-2">
                 <ArrowLeft size={16}/> VOLTAR
             </Link>
         </div>
