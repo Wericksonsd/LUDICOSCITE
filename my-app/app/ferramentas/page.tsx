@@ -11,7 +11,8 @@ export default function Ferramentas () {
     const { desbloqueadas, tabuleiro, carregado, resolvido, imagemLiberada, colocar, reiniciar } = useProgresso();
     const [posicao, setPosicao] = useState<number | null>(null);
 
-    const linkDaPeca = (id: number) => PECAS.find((p) => p.id === id)?.link;
+    const linkDaPeca = (id: number | null) =>
+    id === null ? undefined : PECAS.find((p) => p.id === id)?.link;
 
     const handleReiniciar = () => {
         if (window.confirm("Apagar todo o progresso (pistas e quebra-cabeça)?")) reiniciar();
