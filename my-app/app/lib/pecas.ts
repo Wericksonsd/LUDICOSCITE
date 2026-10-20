@@ -19,7 +19,7 @@ export const PECAS: Pecas[] = dados.pecas.map((p) => ({
  * e o valor é o id da peça que deve estar ali.
  * Deve conter cada número de 1 a 9 exatamente uma vez.
  */
-export const ORDEM_CORRETA: number[] = PECAS.map((p) => p.id).sort((a, b) => a - b);
+export const ORDEM_CORRETA: number[] = [5, 3, 8, 1, 9, 2, 4, 6, 7];
 
 /** Imagem completa liberada ao acertar a ordem. Ex.: "/resposta.png" (arquivo em /public). */
 export const IMAGEM_COMPLETA: string | null = null;

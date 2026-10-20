@@ -37,7 +37,6 @@ export default function ModalPeca({ posicao, atual, tabuleiro, desbloqueadas, on
                                         aria-label={`Peça ${p.id}`}
                                         className={`aspect-square border rounded-xs overflow-hidden ${atual === p.id ? "border-4 border-zinc-950" : "border-zinc-950"} ${emOutraPosicao ? "opacity-40" : ""}`}
                                     >
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
                                         <img src={p.link} alt={`Peça ${p.id}`} className="w-full h-full object-cover" />
                                     </button>
                                 );

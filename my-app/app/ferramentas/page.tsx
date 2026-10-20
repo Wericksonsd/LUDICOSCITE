@@ -25,17 +25,24 @@ export default function Ferramentas () {
 
             {/* quadro: 12 divs coladas, bordas finas */}
             <div className="w-full max-w-sm grid grid-cols-3 border border-zinc-100">
-                {tabuleiro.map((id, i) => (
-                    <button
-                        key={i}
-                        onClick={() => setPosicao(i)}
-                        aria-label={`Posição ${i + 1}`}
-                        className="aspect-square border border-zinc-100 bg-zinc-950 flex items-center justify-center"
-                        style={{ backgroundColor: linkDaPeca(id) }}
-                    >
-                        {id === null && <span className="text-zinc-100 text-xl">+</span>}
-                    </button>
-                ))}
+                {tabuleiro.map((id, i) => {
+                    const src = linkDaPeca(id);
+                    return (
+                        <button
+                            key={i}
+                            onClick={() => setPosicao(i)}
+                            aria-label={`Posição ${i + 1}`}
+                            className="relative aspect-square border border-zinc-100 bg-zinc-950 overflow-hidden"
+                        >
+                            {src ? (
+                                // eslint-disable-next-line @next/next/no-img-element
+                                <img src={src} alt={`Peça ${id}`} className="absolute inset-0 w-full h-full object-cover" />
+                            ) : (
+                                <span className="absolute inset-0 flex items-center justify-center text-zinc-100 text-xl">+</span>
+                            )}
+                        </button>
+                    );
+                })}
             </div>
 
             {imagemLiberada && (
