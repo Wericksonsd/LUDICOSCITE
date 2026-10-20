@@ -57,7 +57,7 @@ export default function Ferramentas () {
             <Link href="/" className="w-full p-2 border-2 border-amber-600 text-amber-600 rounded-md flex items-center justify-center gap-2">
                 <ArrowLeft size={16}/> VOLTAR
             </Link>
-            <button onClick={handleReiniciar} className="text-md text-zinc-200">Reiniciar progresso</button>
+            <button onClick={handleReiniciar} className="text-md hidden text-zinc-200">Reiniciar progresso</button>
 
             {posicao !== null && (
                 <ModalPeca

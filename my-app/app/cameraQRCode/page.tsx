@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { ArrowLeft, QrCode } from "lucide-react";
 import { pecaPorQR } from "../lib/pecas";
 import { type Pecas } from "../db/pecasType";
@@ -94,12 +95,12 @@ export default function CameraQRCode () {
     };
 
     return (
-        <div className="flex-1 w-full flex flex-col items-center gap-4 px-6 pb-4 py-10">
-            <h1 className="text-2xl font-bold">ESCANEAR PISTA</h1>
+        <div className="flex-1 w-full flex flex-col items-center gap-3 px-6 pb-4 py-10">
+            <h1 className="text-2xl font-bold">ESCANEAR PEÇA</h1>
 
-            <div className="w-full flex-1 py-6 px-4 bg-amber-600 rounded-2xl text-center text-zinc-200 flex flex-col items-center justify-center gap-3">
+            <div className="w-full flex-1 py-2 px-4 bg-amber-600 rounded-2xl text-center text-zinc-200 flex flex-col items-center justify-center gap-3">
                 <span className="p-2 border-2 border-dashed rounded-md">
-                    <QrCode size={36}/>
+                    <QrCode size={24}/>
                 </span>
                 <div id="leitor-qr" className="w-full max-w-sm overflow-hidden rounded-md bg-zinc-800" />
                 {erro
@@ -109,7 +110,7 @@ export default function CameraQRCode () {
 
             {resultado && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/80 px-6">
-                    <div className="w-full max-w-sm bg-zinc-100 text-zinc-950 rounded-xs p-4 flex flex-col items-center gap-3 text-center">
+                    <div className="w-full max-w-sm bg-zinc-300 text-zinc-800 rounded-xs p-4 flex flex-col items-center gap-3 text-center">
                         {resultado.tipo === "invalida" && (
                             <>
                                 <h1>QR CODE INVÁLIDO</h1>
@@ -129,7 +130,7 @@ export default function CameraQRCode () {
                                                 key={i}
                                                 disabled={errada}
                                                 onClick={() => responder(resultado.peca, i)}
-                                                className={`w-full p-2 rounded-md border border-zinc-950 text-left ${errada ? "opacity-40 line-through" : "bg-orange-300"}`}
+                                                className={`w-full p-2 rounded-md border border-zinc-800 text-left ${errada ? "opacity-40 line-through" : "bg-amber-600"}`}
                                             >
                                                 {resposta}
                                             </button>
@@ -145,8 +146,8 @@ export default function CameraQRCode () {
                         {(resultado.tipo === "nova" || resultado.tipo === "repetida") && (
                             <>
                                 <h1>{resultado.tipo === "nova" ? "PISTA DESBLOQUEADA" : "PISTA JÁ DESBLOQUEADA"}</h1>
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img
+                                
+                                <Image
                                     src={resultado.peca.link}
                                     alt={`Peça ${resultado.peca.id}`}
                                     className="w-32 h-32 object-cover border border-zinc-950 rounded-xs"
@@ -160,11 +161,11 @@ export default function CameraQRCode () {
                         )}
 
                         <div className="w-full flex gap-2">
-                            <button onClick={escanearOutra} className="w-full p-2 bg-zinc-950 text-orange-300 rounded-md">
+                            <button onClick={escanearOutra} className="w-full p-2 bg-zinc-800 text-amber-600 rounded-md">
                                 {resultado.tipo === "pergunta" ? "CANCELAR" : "ESCANEAR OUTRA"}
                             </button>
                             {(resultado.tipo === "nova" || resultado.tipo === "repetida") && (
-                                <button onClick={() => router.push("/ferramentas")} className="w-full p-2 bg-orange-300 text-zinc-950 rounded-md">VER PISTAS</button>
+                                <button onClick={() => router.push("/ferramentas")} className="w-full p-2 bg-amber-600 text-zinc-950 rounded-md">VER PISTAS</button>
                             )}
                         </div>
                     </div>
