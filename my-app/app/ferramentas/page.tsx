@@ -20,7 +20,7 @@ export default function Ferramentas () {
     };
 
     return (
-        <div className="flex-1 w-full flex flex-col items-center gap-4 px-6 py-12">
+        <div className="flex-1 w-full flex flex-col items-center gap-4 px-6 pt-8 pb-4">
             <h1 className="text-2xl font-bold -mb-4">PISTAS</h1>
             <p className="text-md">{carregado ? desbloqueadas.length : 0}/{TOTAL_PECAS} Desbloqueadas</p>
 

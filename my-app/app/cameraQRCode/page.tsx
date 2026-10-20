@@ -94,7 +94,7 @@ export default function CameraQRCode () {
     };
 
     return (
-        <div className="flex-1 w-full flex flex-col items-center gap-4 px-6  py-12">
+        <div className="flex-1 w-full flex flex-col items-center gap-4 px-6 pb-4 py-10">
             <h1 className="text-2xl font-bold">ESCANEAR PISTA</h1>
 
             <div className="w-full flex-1 py-6 px-4 bg-amber-600 rounded-2xl text-center text-zinc-200 flex flex-col items-center justify-center gap-3">
