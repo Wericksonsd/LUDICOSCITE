@@ -24,7 +24,7 @@ export default function Ferramentas () {
             <h1 className="text-2xl font-bold -mb-4">PISTAS</h1>
             <p className="text-md">{carregado ? desbloqueadas.length : 0}/{TOTAL_PECAS} Desbloqueadas</p>
 
-            <div className="w-full max-w-sm grid grid-cols-3 border border-zinc-100">
+            <div className="w-full max-w-sm grid grid-cols-3 border border-zinc-300">
                 {tabuleiro.map((id, i) => {
                     const src = linkDaPeca(id);
                     return (
@@ -32,12 +32,12 @@ export default function Ferramentas () {
                             key={i}
                             onClick={() => setPosicao(i)}
                             aria-label={`Posição ${i + 1}`}
-                            className="relative aspect-square border border-zinc-100 bg-zinc-950 overflow-hidden"
+                            className="relative aspect-square border border-zinc-300 bg-zinc-950 overflow-hidden"
                         >
                             {src ? (
                                 <Image src={src} alt={`Peça ${id}`} className="absolute inset-0 w-full h-full object-cover" />
                             ) : (
-                                <span className="absolute inset-0 flex items-center justify-center text-zinc-100 text-xl">+</span>
+                                <span className="absolute inset-0 flex items-center justify-center text-zinc-300 text-xl">+</span>
                             )}
                         </button>
                     );
@@ -45,7 +45,7 @@ export default function Ferramentas () {
             </div>
 
             {imagemLiberada && (
-                <Link href="/resposta" className="w-full bg-orange-300 text-zinc-950 rounded-xs p-2 text-center">
+                <Link href="/resposta" className="w-full border-2 border-amber-600 text-zinc-200 rounded-md p-2 text-center">
                     <h1>{resolvido ? "QUEBRA-CABEÇA COMPLETO!" : "IMAGEM COMPLETA LIBERADA"}</h1>
                     <p className="text-xs">Toque para ver a imagem completa.</p>
                 </Link>

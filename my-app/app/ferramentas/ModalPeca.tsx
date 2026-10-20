@@ -1,6 +1,7 @@
 'use client'
 
 import { PECAS } from "../lib/pecas";
+import Image from "next/image";
 
 type Props = {
     posicao: number;
@@ -17,16 +18,16 @@ export default function ModalPeca({ posicao, atual, tabuleiro, desbloqueadas, on
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/80 px-6" onClick={onClose}>
             <div
-                className="w-full max-w-sm bg-zinc-100 text-zinc-950 rounded-xs p-4 flex flex-col gap-3"
+                className="w-full max-w-sm bg-zinc-300 text-zinc-800 rounded-2xl p-4 flex flex-col gap-3"
                 onClick={(e) => e.stopPropagation()}
             >
                 <h1 className="text-center">POSIÇÃO {posicao + 1}</h1>
 
                 {pecas.length === 0 ? (
-                    <p className="text-xs text-center">Você ainda não desbloqueou nenhuma peça. Escaneie os QR Codes do evento para liberar as pistas.</p>
+                    <p className="text-md text-center">Você ainda não desbloqueou nenhuma peça. Escaneie os QR Codes do evento para liberar as pistas.</p>
                 ) : (
                     <>
-                        <p className="text-xs text-center">Escolha uma peça desbloqueada.</p>
+                        <p className="text-md text-center">Escolha uma peça desbloqueada.</p>
                         <div className="grid grid-cols-4 gap-2">
                             {pecas.map((p) => {
                                 const emOutraPosicao = tabuleiro.includes(p.id) && atual !== p.id;
@@ -37,7 +38,7 @@ export default function ModalPeca({ posicao, atual, tabuleiro, desbloqueadas, on
                                         aria-label={`Peça ${p.id}`}
                                         className={`aspect-square border rounded-xs overflow-hidden ${atual === p.id ? "border-4 border-zinc-950" : "border-zinc-950"} ${emOutraPosicao ? "opacity-40" : ""}`}
                                     >
-                                        <img src={p.link} alt={`Peça ${p.id}`} className="w-full h-full object-cover" />
+                                        <Image src={p.link} alt={`Peça ${p.id}`} className="w-full h-full object-cover" />
                                     </button>
                                 );
                             })}
@@ -46,11 +47,11 @@ export default function ModalPeca({ posicao, atual, tabuleiro, desbloqueadas, on
                     </>
                 )}
 
-                <div className="flex gap-2">
+                <div className="flex gap-2 rounded-2xl">
                     {atual !== null && (
-                        <button onClick={() => onEscolher(null)} className="w-full p-2 bg-orange-300 text-zinc-950 rounded-md">REMOVER PEÇA</button>
+                        <button onClick={() => onEscolher(null)} className="w-full p-2 bg-amber-600 text-zinc-800 rounded-md">REMOVER PEÇA</button>
                     )}
-                    <button onClick={onClose} className="w-full p-2 bg-zinc-950 text-orange-300 rounded-md">FECHAR</button>
+                    <button onClick={onClose} className="w-full p-2 bg-zinc-950 text-amber-600 rounded-md">FECHAR</button>
                 </div>
             </div>
         </div>
