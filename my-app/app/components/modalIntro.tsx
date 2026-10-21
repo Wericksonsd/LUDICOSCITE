@@ -14,11 +14,11 @@ export default function ModalIntro({ onClose }: ModalIntroProps) {
             Encontre a barba, tire uma foto dela, e volte na mesa no hall para ter sua recompensa!<br/>
             A barba tem essa aparência:
           </h1>
-          <div className="w-full min-h-60 relative">
+          <div className="w-full max-w-120 min-h-60 relative">
             <Image src="/barba.png" alt="Barba" fill></Image>
           </div>
           <h1 className="mt-8 text-center text-zinc-200 text-md font-bold">Siga esse mapa, e escaneie os QR Codes para liberar a chave final.</h1>
-          <div className="w-full min-h-60 relative">
+          <div className="w-full max-w-120 min-h-60 relative">
             <Image src="/mapaInicio.png" alt="Mapa Cartazes" fill></Image>
           </div>
         </div>
