@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { QrCode, RobotVacuum } from "lucide-react";
 import { useState } from "react";
 import ModalIntro from "./components/modalIntro";
@@ -12,11 +13,16 @@ export default function Central () {
     const { desbloqueadas, carregado, imagemLiberada } = useProgresso();
 
     const [modalIntro, setModalIntro] = useState(false);
+    const [modalMapa, setModalMapa] = useState(false);
 
     const router = useRouter()
 
     const handleCloseModalIntro = () => {
         setModalIntro(modalIntro => !modalIntro);
+    }
+
+    const handleCloseModalMap = () => {
+        setModalMapa(modalMapa => !modalMapa);
     }
 
     return(
@@ -41,11 +47,24 @@ export default function Central () {
                 <Link href="/resposta" className="w-full p-2 bg-orange-300 text-zinc-950 rounded-md text-center">IMAGEM COMPLETA</Link>
             )}
 
-            <button onClick={handleCloseModalIntro} className="w-full p-2 bg-zinc-800 text-amber-600 rounded-md textt-lg font-bold">CARTA DE INTRODUÇÃO</button>    
-
+            <div className="w-full flex items-stretch justify-center gap-4">
+                <button onClick={handleCloseModalIntro} className="w-full p-2 bg-zinc-800 text-amber-600 rounded-md textt-lg font-bold">CARTA DE INTRODUÇÃO</button>
+                <button onClick={handleCloseModalMap} className="w-full p-2 bg-zinc-800 text-amber-600 rounded-md textt-lg font-bold">MAPA</button>    
+            </div>
+            
             {modalIntro && (
                 <ModalIntro onClose={handleCloseModalIntro} />
             )}
+
+            {modalMapa && (
+                <div className="h-dvh w-dvw fixed top-0 left-0 bg-zinc-950/80 z-10 py-12 px-6 flex flex-col gap-4" >
+                    <button onClick={handleCloseModalMap} className="w-6 h-6 flex items-center justify-center bg-amber-600 rounded-sm">X</button>
+                    <div className="h-full w-full relative bg-zinc-200">
+                        <Image src="/mapaInicio.png" alt="Mapa Cartazes" fill></Image>
+                    </div>
+                </div>
+            )}
+            
 
         </div>
     )
