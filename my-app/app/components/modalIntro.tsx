@@ -7,7 +7,7 @@ export default function ModalIntro({ onClose }: ModalIntroProps) {
   return (
     <div className="h-dvh w-dvw fixed top-0 left-0 bg-zinc-950/80 z-10 p-12" >
       <div className="h-full w-full bg-amber-600 p-6 flex flex-col items-center justify-start gap-6 rounded-2xl" >
-        <div className="w-full h-full flex flex-col items-center justify-center gap-6 overflow-scroll p-40">
+        <div className="w-full h-full flex flex-col items-center justify-center gap-6 overflow-scroll py-80">
           <h1 className="text-center text-zinc-200 text-md font-bold">
             Ó nobre visitante, que adentra as terras de Cornélio Procópio. Faria uma festa para sua visita, caso não me tivesse ocorrido um grande infortúnio!<br/>
             Minha barba sumiu! Preciso que me ajude a encontrá-la! Não sei como nem o porquê, só sei que fiquei com esse mapa com 9 pistas. Procure 9 QR codes espalhados pelo campus para solucionar esse mistério!<br/>
