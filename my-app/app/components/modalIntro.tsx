@@ -12,7 +12,7 @@ export default function ModalIntro({ onClose }: ModalIntroProps) {
             Boas vindas a Caça à Barba de Dom Quixote, utilize o mapa abaixo e navegue pelo Campus atrás dos cartazes do projeto que contém QR-Code, escaneie e reposnda a pergunta, assim liberando uma peça. Após coletar todas as peças, monte o quebra-cabeça e libere o mapa final, para assim encontrar a barba e registrar esse momento.<br /><br />
             Boa sorte, divirta-se.
           </h1>
-          <div className="w-full h-80 bg-amber-900 relative">
+          <div className="w-full h-60 bg-amber-900 relative">
             <Image src="/mapaInicio.png" alt="Mapa Cartazes" fill></Image>
           </div>
         </div>
