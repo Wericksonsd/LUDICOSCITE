@@ -49,7 +49,7 @@ export default function Central () {
 
             <div className="w-full flex items-stretch justify-center gap-4">
                 <button onClick={handleCloseModalIntro} className="w-full p-2 bg-zinc-800 text-amber-600 rounded-md textt-lg font-bold">CARTA DE INTRODUÇÃO</button>
-                <button onClick={handleCloseModalMap} className="w-full p-2 bg-zinc-800 text-amber-600 rounded-md textt-lg font-bold">MAPA</button>    
+                <button onClick={handleCloseModalMap} className="w-full p-2 bg-zinc-800 text-amber-600 rounded-md textt-lg font-bold">MAPA<br/>QRCODES</button>    
             </div>
             
             {modalIntro && (
