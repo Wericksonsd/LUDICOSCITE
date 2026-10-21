@@ -6,13 +6,19 @@ interface ModalIntroProps {
 export default function ModalIntro({ onClose }: ModalIntroProps) {
   return (
     <div className="h-dvh w-dvw fixed top-0 left-0 bg-zinc-950/80 z-10 p-12" >
-      <div className="h-full w-full bg-amber-600 p-6 flex flex-col items-center justify-center gap-6 rounded-2xl" >
-        <div className="w-full flex flex-col items-center justify-center gap-6 overflow-scroll">
+      <div className="h-full w-full bg-amber-600 p-6 flex flex-col items-center justify-start gap-6 rounded-2xl" >
+        <div className="w-full h-full flex flex-col items-center justify-center gap-6 overflow-scroll pt-90">
           <h1 className="text-center text-zinc-200 text-md font-bold">
-            Boas vindas a Caça à Barba de Dom Quixote, utilize o mapa abaixo e navegue pelo Campus atrás dos cartazes do projeto que contém QR-Code, escaneie e reposnda a pergunta, assim liberando uma peça. Após coletar todas as peças, monte o quebra-cabeça e libere o mapa final, para assim encontrar a barba e registrar esse momento.<br /><br />
-            Boa sorte, divirta-se.
+            Ó nobre visitante, que adentra as terras de Cornélio Procópio. Faria uma festa para sua visita, caso não me tivesse ocorrido um grande infortúnio!<br/>
+            Minha barba sumiu! Preciso que me ajude a encontrá-la! Não sei como nem o porquê, só sei que fiquei com esse mapa com 9 pistas. Procure 9 QR codes espalhados pelo campus para solucionar esse mistério!<br/>
+            Encontre a barba, tire uma foto dela, e volte na mesa no hall para ter sua recompensa!<br/>
+            A barba tem essa aparência:
           </h1>
-          <div className="w-full h-60 bg-amber-900 relative">
+          <div className="w-full min-h-60 relative">
+            <Image src="/barba.png" alt="Barba" fill></Image>
+          </div>
+          <h1 className="mt-8 text-center text-zinc-200 text-md font-bold">Siga esse mapa, e escaneie os QR Codes para liberar a chave final.</h1>
+          <div className="w-full min-h-60 relative">
             <Image src="/mapaInicio.png" alt="Mapa Cartazes" fill></Image>
           </div>
         </div>

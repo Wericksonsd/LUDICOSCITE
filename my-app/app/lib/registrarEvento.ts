@@ -3,7 +3,6 @@
 const CHAVE_ID = "dq-cliente-id";
 const CHAVE_FINALIZOU = "dq-finalizou-enviado";
 
-/** ID anônimo do navegador (sem dados pessoais), criado na primeira visita. */
 function clienteId(): string | null {
   try {
     let id = localStorage.getItem(CHAVE_ID);
@@ -20,10 +19,6 @@ function clienteId(): string | null {
   }
 }
 
-/**
- * Avisa o servidor que este participante iniciou (1ª peça desbloqueada)
- * ou finalizou (imagem completa liberada). O servidor ignora repetições.
- */
 export function registrarEvento(evento: "iniciou" | "finalizou", pecas: number) {
   const id = clienteId();
   if (!id) return;
@@ -45,5 +40,5 @@ export function registrarEvento(evento: "iniciou" | "finalizou", pecas: number) 
         try { localStorage.setItem(CHAVE_FINALIZOU, "1"); } catch {}
       }
     })
-    .catch(() => {}); // sem internet? o app continua funcionando normalmente
+    .catch(() => {});
 }

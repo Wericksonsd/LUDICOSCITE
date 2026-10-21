@@ -2,9 +2,6 @@ import { NextResponse } from "next/server";
 import { promises as fs } from "fs";
 import path from "path";
 
-// Armazenamento em arquivo JSON (serve para um servidor próprio / evento pequeno).
-// Em hospedagem serverless (Vercel etc.) o disco não persiste: troque ler()/salvar()
-// por um banco (Supabase, Turso, Postgres...). O resto do arquivo não muda.
 const ARQUIVO = path.join(process.cwd(), "data", "participantes.json");
 const RESUMO = path.join(process.cwd(), "data", "estatisticas.json");
 
@@ -27,7 +24,6 @@ async function salvar(dados: Record<string, Registro>) {
   await fs.mkdir(path.dirname(ARQUIVO), { recursive: true });
   await fs.writeFile(ARQUIVO, JSON.stringify(dados, null, 2));
 
-  // resumo pronto para consulta: data/estatisticas.json
   const registros = Object.values(dados);
   const iniciaram = registros.filter((r) => r.iniciouEm).length;
   const finalizaram = registros.filter((r) => r.finalizouEm).length;
@@ -46,7 +42,6 @@ async function salvar(dados: Record<string, Registro>) {
   );
 }
 
-// fila para não perder gravações quando vários participantes enviam ao mesmo tempo
 let fila: Promise<unknown> = Promise.resolve();
 
 export async function POST(req: Request) {
