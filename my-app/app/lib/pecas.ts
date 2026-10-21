@@ -22,7 +22,7 @@ export const PECAS: Pecas[] = dados.pecas.map((p) => ({
 export const ORDEM_CORRETA: number[] = [5, 3, 8, 1, 9, 2, 4, 6, 7];
 
 /** Imagem completa liberada ao acertar a ordem. Ex.: "/resposta.png" (arquivo em /public). */
-export const IMAGEM_COMPLETA: string | null = null;
+export const IMAGEM_COMPLETA: string | null = "/mapaFinal.png";
 
 /** true se TODAS as casas estão preenchidas com a peça certa. */
 export function verificarTabuleiro(tabuleiro: (number | null)[]): boolean {
