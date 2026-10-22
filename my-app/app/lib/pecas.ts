@@ -14,7 +14,7 @@ export const PECAS: Pecas[] = dados.pecas.map((p) => ({
 
 export const ORDEM_CORRETA: number[] = [5, 3, 8, 1, 9, 2, 4, 6, 7];
 
-export const IMAGEM_COMPLETA: string | null = "/mapaFinal.png";
+export const IMAGEM_COMPLETA: string | null = "/mapaFinal.jpeg";
 
 export function verificarTabuleiro(tabuleiro: (number | null)[]): boolean {
   return (
